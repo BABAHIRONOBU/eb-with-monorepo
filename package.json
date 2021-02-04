@@ -1,0 +1,14 @@
+{
+  "name": "@babahironobu/eb-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "api": "yarn workspace @babahironobu/eb-test-api",
+    "web": "yarn workspace @babahironobu/eb-test-web"
+  },
+  "workspaces": {
+    "packages": ["packages/*"]
+  }
+}
