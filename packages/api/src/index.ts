@@ -3,7 +3,7 @@ import Koa from 'koa';
 const app = new Koa();
 
 app.use((ctx) => {
-  ctx.body = 'hello eb with monorepo3';
+  ctx.body = 'hello eb with monorepo';
 });
 
 app.listen(8080, () => {

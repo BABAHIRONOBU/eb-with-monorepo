@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v2
 
       - name: generate deployment packages
-        run: zip -r deploy.zip . -x '.git*' 'packages/admin*' 'packages/rabbit*' 'packages/horse*'
+        run: zip -r deploy.zip . -x '.git*' 'packages/web*'
 
       - name: deploy to elastic beanstalk
         uses: einaregilsson/beanstalk-deploy@v14
