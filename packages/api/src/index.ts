@@ -6,6 +6,6 @@ app.use((ctx) => {
   ctx.body = 'hello eb with monorepo';
 });
 
-app.listen(3000, () => {
-  console.log('running server on 3000...');
+app.listen(8080, () => {
+  console.log('running server on 8080...');
 });
