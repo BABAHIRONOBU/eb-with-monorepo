@@ -1,0 +1,43 @@
+name: api-cd
+
+on:
+  pull_request:
+    branchs:
+      - develop
+    paths:
+      - packages/api/**
+    types:
+      - closed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: download repository contents
+        users: actions/checkout@v2
+
+      - name: install node
+        uses: actions/setup-node@v2
+
+      - name: get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYY-MM-DDTHH-mm-ss
+          utcOffset: "+09:00"
+
+      - name: generate deployment packages
+        run: zip -r deploy.zip . -x '.git*' 'packages/admin*' 'packages/rabbit*' 'packages/horse*'
+
+      - name: deploy to elastic beanstalk
+        uses: einaregilsson/beanstalk-deploy@v14
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: carrot
+          environment_name: development
+          version_label: github-action-${{ steps.current-time.outputs.formattedTime }}
+          region: ap-northeast-2
+          deployment_package: deploy.zip
